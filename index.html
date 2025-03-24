@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Чурэн Дмитрий Сергеевич | Автоматизация и ИИ</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body, html {
+      margin:0; padding:0; font-family:'Montserrat',sans-serif; height:100%;
+      background:#000; color:#32cd32; overflow:auto;
+    }
+    canvas {
+      position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+    }
+    .container {
+      max-width:950px; margin:auto; padding:30px; background:rgba(0,0,0,0.7);
+      border-radius:10px; backdrop-filter:blur(3px);
+    }
+    header{text-align:center;}
+    img.photo{width:140px;height:140px;border-radius:50%;border:3px solid #32cd32;box-shadow:0 0 20px #32cd32;}
+    h1,h2{color:#32cd32;text-shadow:0 0 10px #32cd32;}
+    section{
+      background:rgba(5,15,5,0.75);padding:15px;margin:15px 0;border-radius:8px;
+      transition:0.4s;box-shadow:0 0 10px rgba(50,205,50,0.3);
+    }
+    section:hover{background:rgba(10,25,10,0.85);box-shadow:0 0 20px #32cd32;}
+    .player{
+      position:fixed;bottom:15px;right:15px;padding:10px;background:rgba(0,0,0,0.6);
+      border-radius:10px;box-shadow:0 0 15px #32cd32;
+    }
+    .player button{color:#32cd32;background:none;border:none;cursor:pointer;font-size:20px;padding:5px;}
+  </style>
+</head>
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<div class="container">
+  <header>
+    <img class="photo" src="assets/photo.jpg">
+    <h1>Чурэн Дмитрий Сергеевич</h1>
+    <p>Консультант по автоматизации и ИИ / Интегратор умных систем</p>
+  </header>
+
+  <section><h2>Цель</h2>
+    <p>Интеграция интеллектуальных решений и автоматизации в умные дома и бизнес-процессы на базе ИИ и нейронных сетей.</p>
+  </section>
+
+  <section><h2>Компетенции и технологии</h2>
+    <ul>
+      <li>Системы: KNX, Crestron, IoT, Modbus</li>
+      <li>Нейросети: GPT, Midjourney, ChatGPT, Coze AI</li>
+      <li>Программирование: Python, JavaScript, Node.js</li>
+      <li>Создание интеллектуальных интерфейсов и чат-ботов</li>
+    </ul>
+  </section>
+
+  <section><h2>Опыт работы</h2>
+    <ul>
+      <li><strong>True Project (2025–н.в.):</strong> Интеграция систем автоматизации и ИИ, разработка алгоритмов и чат-ботов.</li>
+      <li><strong>HDL Automation (2024–2025):</strong> Автоматизация жилых объектов и комплексных решений.</li>
+      <li><strong>ТЕХНОМЕДИА ГРУПП (2024):</strong> Создание и тестирование нейросетевых прототипов.</li>
+      <li><strong>Студия-ДК (2023–2024):</strong> Telegram-боты и автоматизация процессов.</li>
+      <li><strong>ЮНИКОМ (2022–2023):</strong> Пусконаладка и визуализация систем управления KNX и Crestron.</li>
+      <li><strong>Лиис инженерные решения (2017–2022):</strong> Автоматизация, системы видеонаблюдения и СКУД.</li>
+    </ul>
+  </section>
+
+  <section><h2>Образование и повышение квалификации</h2>
+    <ul>
+      <li>ТУСУР – Информационная безопасность (2012-2016)</li>
+      <li>Python и ChatGPT (Zerocoder, 2025)</li>
+      <li>Crestron (CTI-P101/P201, 2022)</li>
+      <li>KNX Basic (Jung, 2020)</li>
+    </ul>
+  </section>
+
+  <section><h2>Достижения и проекты</h2>
+    <ul>
+      <li>Создание и внедрение чат-ботов для бизнеса</li>
+      <li>Автоматизация рабочих процессов (+40% эффективности)</li>
+      <li>Методические разработки и учебные материалы по автоматизации и ИИ</li>
+    </ul>
+  </section>
+
+  <section><h2>Контакты</h2>
+    <p><i class="fa-solid fa-phone"></i>+7 (999)495-23-90 (Telegram: <a href="https://t.me/Diviper">@Diviper</a>)</p>
+    <p><i class="fa-solid fa-envelope"></i>churendmitriy@gmail.com</p>
+    <p><i class="fa-brands fa-telegram"></i>ИИ-ассистент: <a href="https://t.me/DiSocrat_bot">@DiSocrat_bot</a></p>
+  </section>
+</div>
+
+<audio id="bg-music" autoplay loop src="assets/music.mp3"></audio>
+<div class="player">
+  <button onclick="document.getElementById('bg-music').play()"><i class="fa-solid fa-play"></i></button>
+  <button onclick="document.getElementById('bg-music').pause()"><i class="fa-solid fa-pause"></i></button>
+  <button onclick="document.getElementById('bg-music').muted=!document.getElementById('bg-music').muted"><i class="fa-solid fa-volume-mute"></i></button>
+</div>
+
+<script>
+const canvas=document.getElementById("matrixCanvas"),ctx=canvas.getContext("2d");canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let symbols="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";symbols=symbols.split("");
+const fontSize=14,columns=canvas.width/fontSize;let drops=[];
+for(let i=0;i<columns;i++)drops[i]=Math.floor(Math.random()*canvas.height);
+function draw(){
+  ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#32cd32";ctx.font=fontSize+"px Montserrat";
+  for(let i=0;i<drops.length;i++){
+    const text=symbols[Math.floor(Math.random()*symbols.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    drops[i]++;if(drops[i]*fontSize>canvas.height&&Math.random()>0.975)drops[i]=0;
+  }
+}
+setInterval(draw,30);
+</script>
+
+</body>
+</html>
